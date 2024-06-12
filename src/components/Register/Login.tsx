@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Register/Login.css"
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setUserLoggedInEmailId, setUserLoggedInEmailPassword } from "../../slicers/LoginSlicer";
@@ -21,8 +21,17 @@ function Login() {
     const dispatch = useAppDispatch()
     // const [] = useState("");
 
-    const [checkUserLoggedInAuth] = useMutation(checkUserLoggedInAuthQuery);
+    const [checkUserLoggedInAuth] = useMutation(checkUserLoggedInAuthQuery,{
+        onCompleted: (data) => {
+            console.log('User deleted:', data);
+            // Optionally refetch data here
+          },
+    });
     
+    useEffect(()=>{
+        console.log(checkUserLoggedInAuth)
+    })
+
     return (
         <div>
             
